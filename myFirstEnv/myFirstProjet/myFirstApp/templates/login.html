@@ -1,0 +1,128 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Connexion - ISEP</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+	<style>
+		body {
+			background-color: #f5f5f5;
+			font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+		}
+
+		.login-card {
+			width: 320px;
+			margin: 60px auto;
+			background-color: #fff;
+			border-radius: 6px;
+			box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+			overflow: hidden;
+		}
+
+		.login-header {
+			background-color: #24364b;
+			color: white;
+			padding: 10px 20px;
+			font-size: 1.2rem;
+			font-weight: 600;
+		}
+
+		.login-body {
+			padding: 20px 25px; /* 🔹 Hauteur réduite */
+			text-align: center;
+		}
+
+		.login-body img {
+			width: 110px; /* 🔹 Logo réduit */
+			margin-bottom: 15px;
+		}
+
+		.form-control {
+			background-color: #f0f6ff;
+			border: 1px solid #dbe4f0;
+			border-radius: 4px;
+			padding: 7px;
+			font-size: 0.9rem;
+		}
+
+		.form-control:focus {
+			border-color: #ffd15b;
+			box-shadow: 0 0 0 0.2rem rgba(255, 209, 91, 0.25);
+		}
+
+		.btn-login {
+			background-color: #f5b942;
+			border: none;
+			width: 100%;
+			color: white;
+			font-weight: 600;
+			border-radius: 4px;
+			padding: 7px;
+			transition: background 0.2s ease-in-out;
+			font-size: 0.95rem;
+		}
+
+		.btn-login:hover {
+			background-color: #e0a92e;
+		}
+
+		.forgot-link, .register-link {
+			color: #007bff;
+			text-decoration: none;
+			font-size: 0.85rem;
+		}
+
+		.forgot-link:hover, .register-link:hover {
+			text-decoration: underline;
+		}
+
+		#messages {
+			background-color: #6c757d;
+			color: white;
+			padding: 6px;
+			margin-top: 8px;
+			border-radius: 4px;
+			font-size: 0.85rem;
+		}
+
+		.links p {
+			margin-bottom: 4px;
+		}
+	</style>
+</head>
+<body>
+
+<div class="login-card">
+	<div class="login-header">Connexion</div>
+	<div class="login-body">
+		<img src="{% static 'images/isep.jpg' %}" alt="ISEP Amadou Traoré">
+
+		<form method="POST" action="">
+			{% csrf_token %}
+			<div class="form-group mb-2">
+				<input type="text" name="login" class="form-control" placeholder="Username" required>
+			</div>
+
+			<div class="form-group mb-2">
+				<input type="password" name="password" class="form-control" placeholder="Mot de passe" required>
+			</div>
+
+			{% for message in messages %}
+			<p id="messages">{{ message }}</p>
+			{% endfor %}
+
+			<button type="submit" class="btn btn-login mt-2">ENTRER</button>
+		</form>
+
+		<div class="links mt-3">
+			<p>Pas encore de compte ? <a href="{% url 'inscription' %}" class="register-link">S'inscrire</a></p>
+			<p><a href="{% url 'reset_password' %}" class="forgot-link">Mot de passe oublié ?</a></p>
+		</div>
+	</div>
+</div>
+
+</body>
+</html>

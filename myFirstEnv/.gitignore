@@ -1,0 +1,60 @@
+# Created by venv; see https://docs.python.org/3/library/venv.html
+# --- Django ---
+*.pyc
+__pycache__/
+db.sqlite3
+media/
+staticfiles/
+static/
+.env
+
+# --- Migrations ---
+*/migrations/__pycache__/
+*/migrations/*.pyc
+*/migrations/*.log
+*/migrations/*.bak
+*/migrations/*.swp
+
+# --- Environnements virtuels ---
+venv/
+env/
+ENV/
+.venv/
+
+# --- Logs et fichiers temporaires ---
+*.log
+*.pot
+*.py[cod]
+*.so
+*.tmp
+*.temp
+
+# --- IDE / éditeurs ---
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# --- Système ---
+.DS_Store
+Thumbs.db
+
+# --- Python ---
+__pycache__/
+*.pyo
+*.pyd
+*.pdb
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# --- Tests ---
+.coverage
+.pytest_cache/
+htmlcov/
+
+# --- Autres fichiers ---
+*.sqlite3
+

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>template</title>
+  </head>
+  <body>
+    {% include "mymenu.html" %} {% comment %}
+    <h1>Hello {{ firstname }}, how are you?</h1>
+    {% endcomment %} {% comment %}
+    <h1>Welcome ladies and gentlemen</h1>
+    {% endcomment %}
+
+    <h1 class="bg-info text-white rounded text-center h1 p-2 m-2">
+      La liste de tous les étudiants
+    </h1>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Id</th>
+          <th scope="col">Prénom</th>
+          <th scope="col">Nom</th>
+          <th scope="col">Adresse</th>
+          <th scope="col">Naissancee</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for etudiant in mesdonnees %}
+        <tr>
+          <th scope="row">{{ etudiant.id }}</th>
+          <td>{{ etudiant.prenom }}</td>
+          <td>{{ etudiant.nom }}</td>
+          <td>{{ etudiant.adresse }}</td>
+          <td>{{ etudiant.date }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <h1 class="bg-primary rounded rounded-2 text-center text-white p-2 m-2.3">
+      La liste etudiants avec le prenom commençant par I
+    </h1>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Id</th>
+          <th scope="col">Prénom</th>
+          <th scope="col">Nom</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for etudiant in nomdonnees %}
+        <tr>
+          <th scope="row">{{ etudiant.id }}</th>
+          <td>{{ etudiant.prenom }}</td>
+          <td>{{ etudiant.nom }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <hr />
+
+    <h1 class="bg-danger rounded rounded-2 text-center text-white p-2 m-2.3">
+      La liste des étudiants ordonnée par nom
+    </h1>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Id</th>
+          <th scope="col">Prénom</th>
+          <th scope="col">Nom</th>
+          <th scope="col">Adresse</th>
+          <th scope="col">Naissancee</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for etudiant in ordonnees %}
+        <tr>
+          <th scope="row">{{ etudiant.id }}</th>
+          <td>{{ etudiant.prenom }}</td>
+          <td>{{ etudiant.nom }}</td>
+          <td>{{ etudiant.adresse }}</td>
+          <td>{{ etudiant.date }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% include 'footer.html' %}
+    </body>
+</html>

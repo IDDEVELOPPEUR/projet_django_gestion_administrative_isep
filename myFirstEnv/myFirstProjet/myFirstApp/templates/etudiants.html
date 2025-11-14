@@ -1,0 +1,191 @@
+{% extends "master.html" %}
+{% load static %}
+
+{% block title %}
+Liste des étudiants de {{ filiere.nom }}
+{% endblock %}
+
+{% block content %}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+    body {
+        background-color: #faf6f2;
+        font-family: "Poppins", sans-serif;
+    }
+
+    .page-header {
+        background-color: #4e342e;
+        color: #fff;
+        padding: 25px 30px;
+        border-radius: 12px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 40px;
+    }
+
+    .page-header h1 {
+        font-size: 1.8rem;
+        font-weight: 600;
+        margin: 0;
+    }
+
+    .btn-home {
+        background-color: #d7ccc8;
+        color: #4e342e;
+        font-weight: 600;
+        border: none;
+        border-radius: 50px;
+        padding: 10px 22px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+
+    .btn-home:hover {
+        background-color: #4e342e;
+        color: #fff;
+        text-decoration: none;
+    }
+
+    .card {
+        border: none;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        background-color: #fff;
+    }
+
+    .table thead {
+        background-color: #4e342e;
+        color: white;
+        text-transform: uppercase;
+        font-size: 0.9rem;
+    }
+
+    .table tbody tr:hover {
+        background-color: #f7eee9;
+        transition: background 0.3s ease;
+    }
+
+    .btn-view {
+        background-color: #4e342e;
+        color: #fff;
+        border: none;
+        padding: 6px 14px;
+        border-radius: 6px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        text-decoration: none !important;
+    }
+
+    .btn-view:hover {
+        background-color: #3e2723;
+    }
+
+    .no-data {
+        background-color: #fff8f3;
+        border: 1px solid #e0bfa4;
+        color: #4e342e;
+        border-radius: 8px;
+        padding: 15px;
+        font-weight: 500;
+    }
+    .bouton {
+        display: flex;
+        gap: 10px;
+    }
+
+    /*  Bouton aligné au tableau */
+    .btn-add-student {
+        background-color: #4e342e;
+        color: white;
+        padding: 15px;
+        border-radius: 26px;
+        font-size: 1rem;
+        font-weight: 500;
+        text-decoration: none;
+
+    }
+
+    .btn-add-student:hover {
+        background-color: #3e2723;
+        color: #fff;
+        text-decoration: none;
+    }
+
+    .add-btn-container {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 20px;
+    }
+</style>
+
+<div class="container mt-5 mb-5">
+
+    <div class="page-header shadow-sm">
+        <h1>👩‍🎓 Étudiants de {{ filiere.nom }}</h1>
+        <a href="{% url 'listeFilieres' %}" class="btn-home">Retour aux filières</a>
+    </div>
+
+    {% if etudiants %}
+    <div class="card p-3">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle text-center mb-0">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Prénom</th>
+                    <th>Nom</th>
+                    <th>Téléphone</th>
+                    <th>Adresse</th>
+                    <th>Date de naissance</th>
+                    <th>Filiere</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for etudiant in etudiants %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ etudiant.prenom }}</td>
+                    <td>{{ etudiant.nom }}</td>
+                    <td>{{ etudiant.telephone }}</td>
+                    <td>{{ etudiant.adresse }}</td>
+                    <td>{{ etudiant.date }}</td>
+                    <td>{{ etudiant.filiere }}</td>
+                    <td>
+                        <div class="bouton">
+
+                            <a href="{% url 'details' etudiant.id %}" class="btn-view">
+                                Voir détails
+                            </a>
+                            <a href="#"
+                               class="btn btn-danger btn-sm"
+                               onclick="return confirm('Voulez-vous vraiment supprimer cet étudiant ?');">
+                                Supprimer
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!--  Bouton aligné sous le tableau -->
+    <div class="add-btn-container">
+        <a href="{% url 'ajouter_etudiant' filiere.id %}" class="btn-add-student"> Ajouter un étudiant</a>
+    </div>
+
+    {% else %}
+    <div class="no-data text-center mt-4">
+        Aucun étudiant trouvé pour cette filière.
+    </div>
+    <div class="add-btn-container">
+        <a href="{% url 'ajouter_etudiant' filiere.id %}" class="btn-add-student"> Ajouter un étudiant</a>
+    </div>
+    {% endif %}
+</div>
+
+{% endblock %}

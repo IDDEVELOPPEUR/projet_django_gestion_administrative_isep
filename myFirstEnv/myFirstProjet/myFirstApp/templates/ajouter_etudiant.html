@@ -1,0 +1,146 @@
+{% extends "master.html" %}
+{% load static %}
+
+{% block title %}
+Ajouter un étudiant
+{% endblock %}
+
+{% block content %}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+    body {
+        background-color: #faf6f2;
+        font-family: "Poppins", sans-serif;
+    }
+
+    .page-header {
+        background-color: #4e342e;
+        color: #fff;
+        padding: 25px 30px;
+        border-radius: 12px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 40px;
+    }
+
+    .page-header h1 {
+        font-size: 1.6rem;
+        font-weight: 600;
+        margin: 0;
+    }
+
+    .btn-home {
+        background-color: #d7ccc8;
+        color: #4e342e;
+        font-weight: 600;
+        border: none;
+        border-radius: 50px;
+        padding: 10px 22px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+
+    .btn-home:hover {
+        background-color: #4e342e;
+        color: #fff;
+        text-decoration: none;
+    }
+
+    .form-card {
+        background-color: #fff;
+        border-radius: 15px;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+        padding: 40px;
+        max-width: 650px;
+        margin: 0 auto;
+    }
+
+    label {
+        font-weight: 500;
+        color: #4e342e;
+        margin-bottom: 6px;
+    }
+
+    input, select {
+        border-radius: 8px !important;
+        border: 1px solid #ccc;
+        padding: 10px 12px;
+        width: 100%;
+        margin-bottom: 18px;
+        font-size: 0.95rem;
+    }
+
+    input:focus, select:focus {
+        border-color: #4e342e;
+        box-shadow: 0 0 0 0.2rem rgba(78, 52, 46, 0.25);
+    }
+
+    .btn-submit {
+        background-color: #4e342e;
+        color: #fff;
+        font-weight: 600;
+        border: none;
+        border-radius: 8px;
+        padding: 12px 25px;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+    }
+
+    .btn-submit:hover {
+        background-color: #3e2723;
+        transform: translateY(-2px);
+    }
+</style>
+
+<div class="container mt-5 mb-5">
+    <div class="page-header shadow-sm">
+        <h1> Ajouter un étudiant dans {{ filiere.nom }}</h1>
+        <a href="{% url 'etudiants' filiere.id %}" class="btn-home">Retour à la liste</a>
+    </div>
+
+    <div class="form-card">
+        <form method="POST">
+            {% csrf_token %}
+
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="prenom">Prénom :</label>
+                    <input type="text" name="prenom" id="prenom" class="form-control" required>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="nom">Nom :</label>
+                    <input type="text" name="nom" id="nom" class="form-control" required>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="telephone">Téléphone :</label>
+                    <input type="text" name="telephone" id="telephone" class="form-control" required>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="adresse">Adresse :</label>
+                    <input type="text" name="adresse" id="adresse" class="form-control">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="date">Date de naissance :</label>
+                    <input type="date" name="date" id="date" class="form-control" required>
+                </div>
+                <input type="hidden" name="filiere_id" value="{{ filiere.id }}">
+
+                <div class="text-center mt-4">
+                    <button type="submit" class="btn-submit">Enregistrer</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

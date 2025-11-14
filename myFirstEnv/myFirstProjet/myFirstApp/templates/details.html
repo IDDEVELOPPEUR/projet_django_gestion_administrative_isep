@@ -1,0 +1,219 @@
+{% extends "master.html" %}
+{% load static %}
+
+{% block title %}
+Détails de {{ etudiant.prenom }} {{ etudiant.nom }}
+{% endblock %}
+
+{% block content %}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+    body {
+        background-color: #f7f3f0;
+        font-family: "Poppins", sans-serif;
+    }
+
+    /* Header */
+    .page-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #4e342e;
+        color: #fff;
+        padding: 20px 25px;
+        border-radius: 12px;
+        margin-bottom: 40px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .page-header h1 {
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin: 0;
+    }
+
+    .btn-theme {
+        background-color: #6d4c41;
+        color: #fff;
+        border: none;
+        border-radius: 50px;
+        padding: 8px 20px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        text-decoration: none;
+    }
+
+    .btn-theme:hover {
+        background-color: #4e342e;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        color: #fff;
+    }
+
+    .btn-outline-theme {
+        border: 2px solid #4e342e;
+        color: #4e342e;
+        border-radius: 50px;
+        padding: 8px 20px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        text-decoration: none;
+    }
+
+    .btn-outline-theme:hover {
+        background-color: #4e342e;
+        color: #fff;
+    }
+
+    /* Dashboard layout */
+    .profile-card {
+        border: none;
+        border-radius: 15px;
+        background-color: #fff;
+        padding: 30px;
+        box-shadow: 0 6px 20px rgba(78, 52, 46, 0.15);
+        text-align: center;
+    }
+
+    .profile-card img {
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 50%;
+        margin-bottom: 15px;
+        border: 3px solid #4e342e;
+    }
+
+    .profile-card h3 {
+        color: #4e342e;
+        font-weight: 700;
+    }
+
+    .details-card {
+        border: none;
+        border-radius: 15px;
+        background-color: #fff;
+        padding: 25px;
+        box-shadow: 0 6px 20px rgba(78, 52, 46, 0.15);
+    }
+
+    .details-card h4 {
+        color: #4e342e;
+        font-weight: 600;
+        margin-bottom: 25px;
+        text-align: center;
+    }
+
+    /* Tableau informations */
+    .details-card table th {
+        width: 35%;
+        background-color: #f5f2ef; /* couleur très légère */
+        color: #3e2723;
+        font-weight: 500;
+    }
+
+    .details-card table td {
+        color: #3e2723;
+        font-weight: 500;
+    }
+
+    input[type="submit"] {
+        background-color: #6d4c41;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        padding: 8px 16px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    input[type="submit"]:hover {
+        background-color: #4e342e;
+    }
+
+    @media (max-width: 768px) {
+        .row-dashboard {
+            flex-direction: column;
+        }
+        .profile-card, .details-card {
+            margin-bottom: 20px;
+        }
+    }
+</style>
+
+<div class="container mt-5 mb-5">
+
+    <!-- Header -->
+    <div class="page-header">
+        <h1>👩‍🎓 Détails de {{ etudiant.prenom }} {{ etudiant.nom }}</h1>
+        <div>
+            <a href="{% url 'home_connect' %}" class="btn-theme me-2"> Accueil</a>
+            <a href="/myFirstApp" class="btn-outline-theme">⬅ Retour à la liste</a>
+        </div>
+    </div>
+
+    <!-- Dashboard Layout -->
+    <div class="row row-dashboard g-4">
+        <!-- Carte profil -->
+        <div class="col-md-4">
+            <div class="profile-card">
+                <img src="{% static 'images/user.jpg' %}" alt="Photo de {{ etudiant.prenom }}">
+                <h3>{{ etudiant.prenom }} {{ etudiant.nom }}</h3>
+                <p>{{ etudiant.adresse }}</p>
+                <p>{{ etudiant.telephone }}</p>
+            </div>
+        </div>
+
+        <!-- Carte détails -->
+        <div class="col-md-8">
+            <div class="details-card">
+                <h4>Informations personnelles</h4>
+                <table class="table table-bordered align-middle text-center mb-3">
+                    <tbody>
+                    <tr>
+                        <th>Prénom</th>
+                        <td>{{ etudiant.prenom }}</td>
+                    </tr>
+                    <tr>
+                        <th>Nom</th>
+                        <td>{{ etudiant.nom }}</td>
+                    </tr>
+                    <tr>
+                        <th>Téléphone</th>
+                        <td>{{ etudiant.telephone }}</td>
+                    </tr>
+                    <tr>
+                        <th>Adresse</th>
+                        <td>{{ etudiant.adresse }}</td>
+                    </tr>
+                    <tr>
+                        <th>Date de naissance</th>
+                        <td>{{ etudiant.date }}</td>
+                    </tr>
+                    <tr>
+                        <th>Bulletin</th>
+                        <td>
+                            <form action="" method="POST" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                {{ formulaire.as_p }}
+                                <input type="submit" value="Mettre à jour">
+                            </form>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bouton retour bas -->
+    <div class="text-center mt-4">
+        <a href="{% url 'listeFilieres' %}" class="btn-theme px-4 py-2">🔙 Retour à la liste des étudiants</a>
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+{% endblock %}

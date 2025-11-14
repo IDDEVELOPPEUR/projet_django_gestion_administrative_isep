@@ -1,0 +1,366 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ISEP Diamniadio - Upload Cours</title>
+
+    <!-- Icônes Bootstrap et CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'style2.css' %}" /> {# Assurez-vous que style2.css est pertinent ou fusionnez-le si nécessaire #}
+    {# main.css n'est plus nécessaire ici car les styles seront inline ou dans le bloc style #}
+    <script src="{% static 'script.js' %}" defer></script>
+
+    <style>
+        /* Variables de couleur ISEP */
+        :root {
+            --isep-blue: #030464ff;
+            --isep-yellow: #ffb301ff;
+        }
+
+        /* Styles de la barre de navigation (seulement pour le footer, car il n'y a pas de navbar principale) */
+        /* Si vous avez une barre de navigation pour les pages de base, assurez-vous qu'elle est définie ailleurs */
+
+        /* Boutons généraux (réutilisés) */
+        .btn-user {
+            background: var(--isep-yellow);
+            color: #000 !important;
+            font-weight: 600;
+            border-radius: 8px;
+            padding: 12px 25px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn-user:hover {
+            background: #e6b42e;
+            transform: scale(1.05);
+        }
+
+        .btn-connexion {
+            background: var(--isep-blue);
+            color: #fff !important;
+            font-weight: 600;
+            border-radius: 8px;
+            padding: 12px 25px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            border: 1px solid var(--isep-blue);
+        }
+        .btn-connexion:hover {
+            background: #02023a;
+            transform: scale(1.05);
+        }
+
+        /* Section Hero (adaptée pour cette page) */
+        .hero {
+            position: relative;
+            height: 150px; /* Hauteur réduite pour un hero moins proéminent sur cette page */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            background: var(--isep-blue); /* Fond simple pour cette page */
+        }
+
+        .hero .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.3); /* Overlay léger */
+            z-index: 1;
+        }
+
+        .hero .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            padding: 10px;
+        }
+
+        .hero-content h1 {
+            font-size: 2rem; /* Taille de titre ajustée */
+            font-weight: 700;
+            margin-bottom: 0;
+            animation: none; /* Pas d'animation pour les pages secondaires */
+        }
+
+        .hero-content p {
+            font-size: 1rem;
+            margin-bottom: 0;
+            animation: none;
+        }
+
+        .hero-content .btn-back {
+            background-color: var(--isep-yellow);
+            color: var(--isep-blue);
+            border: none;
+            border-radius: 5px;
+            padding: 8px 15px;
+            font-weight: 600;
+            text-decoration: none;
+            margin-top: 10px;
+            display: inline-block;
+            transition: background-color 0.3s ease;
+        }
+        .hero-content .btn-back:hover {
+            background-color: #e6b42e;
+        }
+
+
+        /* FOOTER (réutilisé) */
+        .footer-modern {
+            background: #f1f2f7;
+            padding: 40px 0;
+            border-top: 4px solid var(--isep-blue);
+        }
+
+        .footer-modern .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 20px;
+        }
+
+        .footer-title {
+            color: var(--isep-blue);
+            font-weight: 700;
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+
+        .footer-column p, .footer-column ul {
+            color: #555;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .footer-column ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column ul li a {
+            color: #555;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-column ul li a:hover {
+            color: var(--isep-blue);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-icons a {
+            color: var(--isep-blue);
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            color: var(--isep-yellow);
+        }
+
+        .footer-bottom {
+            background: var(--isep-blue);
+            color: white;
+            padding: 10px;
+            font-size: 0.9rem;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+
+        /* Styles spécifiques à la page d'upload */
+        body {
+            background-color: #f7f3f0;
+            font-family: "Poppins", sans-serif;
+        }
+
+        /* Carte formulaire */
+        .upload-card {
+            border-radius: 20px;
+            background: linear-gradient(145deg, #fff, #fdf8f5);
+            max-width: 500px;
+            margin: 40px auto; /* Marge ajustée car le hero prend moins de place */
+            padding: 40px 30px;
+            box-shadow: 0 10px 25px rgba(78, 52, 46, 0.2);
+            transition: all 0.4s ease;
+            text-align: center;
+        }
+
+        .upload-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(78, 52, 46, 0.3);
+        }
+
+        /* Titre et texte */
+        .upload-card h3 {
+            color: var(--isep-blue); /* Couleur ISEP */
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .upload-card p {
+            color: #6d4c41;
+            font-weight: 500;
+            margin-bottom: 25px;
+        }
+
+        /* Icône upload */
+        .upload-card .upload-icon {
+            font-size: 50px;
+            color: var(--isep-blue); /* Couleur ISEP */
+            margin-bottom: 20px;
+            transition: 0.3s;
+        }
+
+        .upload-card:hover .upload-icon {
+            transform: scale(1.1);
+        }
+
+        /* Input file (peut nécessiter des styles additionnels pour un meilleur rendu si non géré par Django Forms) */
+        .upload-card input[type="file"] {
+            display: block;
+            margin: 0 auto 20px auto;
+            cursor: pointer;
+            font-weight: 500;
+            color: #4e342e;
+            /* Pour un meilleur style, on pourrait cacher l'input par défaut et styliser un label */
+        }
+
+        /* Bouton upload */
+        .btn-upload {
+            background-color: var(--isep-blue); /* Couleur ISEP */
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            padding: 12px 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-upload:hover {
+            background-color: #02023a; /* Teinte plus foncée */
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+        }
+
+        /* Responsive */
+        @media (max-width: 576px) {
+            .upload-card {
+                padding: 30px 20px;
+                margin: 40px 15px;
+            }
+            .btn-upload {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <!-- Pas de barre de navigation principale sur cette page selon la demande -->
+        <section class="hero">
+            <div class="overlay"></div>
+            <div class="hero-content">
+                {% if request.user.is_authenticated and is_responsable %}
+                    <a href="{% url 'home_connect' %}" class="btn-back" aria-label="Retour à l'accueil">
+                        <i class="bi bi-arrow-left"></i> Retour
+                    </a>
+                {% elif request.user.is_authenticated %}
+                     <a href="{% url 'home_connect' %}" class="btn-back" aria-label="Retour à l'accueil">
+                        <i class="bi bi-arrow-left"></i> Retour
+                    </a>
+                {% else %}
+                    {# Fallback si l'utilisateur n'est pas connecté et accède directement #}
+                    <a href="{% url 'login' %}" class="btn-back" aria-label="Se connecter">
+                        <i class="bi bi-arrow-left"></i> Connexion
+                    </a>
+                {% endif %}
+
+            </div>
+        </section>
+    </header>
+
+    <main>
+        <div class="upload-card">
+            <div class="upload-icon">📁</div>
+            <h3>Ajouter un contenu</h3>
+            <p></p>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn-upload mt-2">Ajouter maintenant</button>
+            </form>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer-modern">
+        <div class="container">
+            <div class="footer-column">
+                <h4 class="footer-title">À Propos</h4>
+                <p>L'ISEP Diamniadio forme les professionnels de demain avec des programmes axés sur l'innovation et la pratique.</p>
+            </div>
+            <div class="footer-column">
+                <h4 class="footer-title">Liens Rapides</h4>
+                <ul>
+                    <li><a href="#">Accueil</a></li>
+                    <li><a href="#">Formations</a></li>
+                    <li><a href="#">Admissions</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4 class="footer-title">Contact</h4>
+                <p>Adresse: Diamniadio, Sénégal</p>
+                <p>Téléphone: +221 33 000 00 00</p>
+                <p>Email: contact@isepdiamniadio.sn</p>
+            </div>
+            <div class="footer-column">
+                <h4 class="footer-title">Suivez-nous</h4>
+                <div class="social-icons">
+                    <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="bi bi-twitter"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2023 ISEP Diamniadio. Tous droits réservés.
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>
