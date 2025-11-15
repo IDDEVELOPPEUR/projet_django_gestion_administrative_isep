@@ -6,105 +6,151 @@ Ajouter un étudiant
 {% endblock %}
 
 {% block content %}
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 
 <style>
-    body {
-        background-color: #faf6f2;
-        font-family: "Poppins", sans-serif;
-    }
+:root {
+    --primary-blue: #1e3a8a;
+    --primary-gold: #facc15;
+    --card-shadow: rgba(0,0,0,0.15);
+    --hover-shadow: rgba(0,0,0,0.25);
+}
 
-    .page-header {
-        background-color: #4e342e;
-        color: #fff;
-        padding: 25px 30px;
-        border-radius: 12px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 40px;
-    }
+body {
+    background-color: #f4f6f9;
+    font-family: "Poppins", sans-serif;
+    padding-top: 90px; /* espace pour le header fixe */
+}
 
-    .page-header h1 {
-        font-size: 1.6rem;
-        font-weight: 600;
-        margin: 0;
-    }
+a { text-decoration: none !important; }
 
-    .btn-home {
-        background-color: #d7ccc8;
-        color: #4e342e;
-        font-weight: 600;
-        border: none;
-        border-radius: 50px;
-        padding: 10px 22px;
-        text-decoration: none;
-        transition: all 0.3s ease;
-    }
+/* Header fixe */
+.navbar-fixed {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 999;
+    background: var(--primary-blue);
+    padding: 15px 30px;
+    box-shadow: 0 4px 20px var(--card-shadow);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
-    .btn-home:hover {
-        background-color: #4e342e;
-        color: #fff;
-        text-decoration: none;
-    }
+.navbar-fixed .navbar-brand {
+    color: white;
+    font-weight: 700;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
 
-    .form-card {
-        background-color: #fff;
-        border-radius: 15px;
-        box-shadow: 0 6px 20px rgba(0,0,0,0.08);
-        padding: 40px;
-        max-width: 650px;
-        margin: 0 auto;
-    }
+.header-buttons a {
+    border-radius: 50px;
+    font-weight: 600;
+    padding: 8px 18px;
+    margin-left: 8px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
 
-    label {
-        font-weight: 500;
-        color: #4e342e;
-        margin-bottom: 6px;
-    }
+.btn-theme {
+    background: var(--primary-gold);
+    color: var(--primary-blue);
+    border: none;
+}
 
-    input, select {
-        border-radius: 8px !important;
-        border: 1px solid #ccc;
-        padding: 10px 12px;
-        width: 100%;
-        margin-bottom: 18px;
-        font-size: 0.95rem;
-    }
+.btn-theme:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px var(--hover-shadow);
+    background: #fcd34d;
+}
 
-    input:focus, select:focus {
-        border-color: #4e342e;
-        box-shadow: 0 0 0 0.2rem rgba(78, 52, 46, 0.25);
-    }
+/* Form card */
+.form-card {
+    background: white;
+    border-radius: 20px;
+    padding: 40px;
+    max-width: 700px;
+    margin: 30px auto;
+    box-shadow: 0 8px 25px var(--card-shadow);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
 
-    .btn-submit {
-        background-color: #4e342e;
-        color: #fff;
-        font-weight: 600;
-        border: none;
-        border-radius: 8px;
-        padding: 12px 25px;
-        font-size: 1rem;
-        transition: all 0.3s ease;
-    }
+.form-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 35px var(--hover-shadow);
+}
 
-    .btn-submit:hover {
-        background-color: #3e2723;
-        transform: translateY(-2px);
-    }
+label {
+    font-weight: 500;
+    color: var(--primary-blue);
+    margin-bottom: 6px;
+}
+
+input, select {
+    border-radius: 10px !important;
+    border: 1px solid #ccc;
+    padding: 10px 12px;
+    width: 100%;
+    margin-bottom: 18px;
+    font-size: 0.95rem;
+    transition: all 0.3s;
+}
+
+input:focus, select:focus {
+    border-color: var(--primary-blue);
+    box-shadow: 0 0 0 0.2rem rgba(30,58,138,0.25);
+}
+
+.btn-submit {
+    background-color: var(--primary-blue);
+    color: #fff;
+    font-weight: 600;
+    border: none;
+    border-radius: 50px;
+    padding: 12px 30px;
+    font-size: 1rem;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.btn-submit:hover {
+    background-color: #153170;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px var(--hover-shadow);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .row-form { flex-direction: column; }
+    .header-buttons { flex-direction: column; gap: 8px; margin-top: 10px; }
+}
 </style>
 
-<div class="container mt-5 mb-5">
-    <div class="page-header shadow-sm">
-        <h1> Ajouter un étudiant dans {{ filiere.nom }}</h1>
-        <a href="{% url 'etudiants' filiere.id %}" class="btn-home">Retour à la liste</a>
+<!-- Navbar fixe -->
+<nav class="navbar-fixed">
+    <div class="navbar-brand">
+        <i class="bi bi-person-plus-fill"></i> Ajouter un étudiant
     </div>
+    <div class="header-buttons d-flex">
+        <a href="{% url 'etudiants' filiere.id %}" class="btn-theme">
+            <i class="bi bi-arrow-left-circle"></i> Retour liste étudiants
+        </a>
+    </div>
+</nav>
+
+<div class="container fade-in">
 
     <div class="form-card">
         <form method="POST">
             {% csrf_token %}
 
-            <div class="row">
+            <div class="row row-form">
                 <div class="col-md-6">
                     <label for="prenom">Prénom :</label>
                     <input type="text" name="prenom" id="prenom" class="form-control" required>
@@ -116,7 +162,7 @@ Ajouter un étudiant
                 </div>
             </div>
 
-            <div class="row">
+            <div class="row row-form">
                 <div class="col-md-6">
                     <label for="telephone">Téléphone :</label>
                     <input type="text" name="telephone" id="telephone" class="form-control" required>
@@ -128,19 +174,23 @@ Ajouter un étudiant
                 </div>
             </div>
 
-            <div class="row">
+            <div class="row row-form">
                 <div class="col-md-6">
                     <label for="date">Date de naissance :</label>
                     <input type="date" name="date" id="date" class="form-control" required>
                 </div>
-                <input type="hidden" name="filiere_id" value="{{ filiere.id }}">
+            </div>
 
-                <div class="text-center mt-4">
-                    <button type="submit" class="btn-submit">Enregistrer</button>
-                </div>
+            <input type="hidden" name="filiere_id" value="{{ filiere.id }}">
+
+            <div class="text-center mt-4">
+                <button type="submit" class="btn-submit">
+                    <i class="bi bi-check-circle"></i> Enregistrer
+                </button>
             </div>
         </form>
     </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 {% endblock %}

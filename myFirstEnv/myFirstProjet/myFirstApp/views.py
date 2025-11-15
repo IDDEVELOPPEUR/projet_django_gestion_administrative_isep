@@ -62,7 +62,7 @@ def home_principal(request):
 def home_connecte(request):
     user = request.user
 
-    # Forcer la création du profil
+    # Ici je force la création du profil
     if not hasattr(user, 'etudiant'):
         messages.info(request, "Veuillez compléter votre profil pour continuer.")
         return redirect('profil_utilisateur')
@@ -106,7 +106,6 @@ def connexion(request):
         if user:
             auth_login(request, user)
 
-            # S'il n'a pas encore de profil → page profil
             if not hasattr(user, 'etudiant'):
                 return redirect('profil_utilisateur')
 
@@ -202,9 +201,12 @@ def success_page(request):
 
 def supprimer_etudiant(request, id):
     etudiant = get_object_or_404(Etudiant, id=id)
+    filiere_id = etudiant.filiere.id if etudiant.filiere else None
     etudiant.delete()
-    messages.success(request, f" L’étudiant {etudiant.prenom} {etudiant.nom} a été supprimé avec succès.")
-    return redirect('liste_etudiants')
+    messages.success(request, "L’étudiant a été supprimé.")
+
+    return redirect('etudiants', filiere_id=filiere_id)
+
 
 
 #filière
