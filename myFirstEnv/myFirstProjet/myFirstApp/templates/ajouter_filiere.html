@@ -1,180 +1,185 @@
 {% load static %}
 {% load widget_tweaks %}
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ajouter une filière - ISEP Diamniadio</title>
+    <title>Ajouter une filière</title>
 
-    <!-- Bootstrap CSS -->
+    <!-- Bootstrap + Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'style2.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
     <style>
-        /* Couleurs principales */
         :root {
-            --couleur-principale: #3e2723;
-            --couleur-secondaire: #5d4037;
-            --fond-clair: #ffffff;
+            --blue-dark: #0a1a33;
+            --blue-mid: #0f2a59;
+            --blue-light: #3b6aa0;
+            --gold: #facc15;
+            --soft-white: #ffffff;
+            --card-shadow: rgba(0, 0, 0, 0.15);
         }
 
         body {
-            background-color: var(--fond-clair);
-            color: var(--couleur-principale);
-            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #eef3fa, #d9e6f7);
+            font-family: "Poppins", sans-serif;
+            padding-top: 95px;
         }
 
-        /* Barre de navigation */
+        /* NAVBAR FIXE */
         .navbar {
-            background-color: var(--couleur-principale) !important;
+            background: var(--blue-dark);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, .25);
         }
 
         .navbar-brand {
-            color: #fff !important;
             font-weight: 700;
+            color: var(--gold) !important;
             letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        .btn-outline-light {
-            border-color: #fff;
-            color: #fff;
+        .nav-btn {
+            border: 2px solid var(--gold);
+            color: var(--gold) !important;
+            font-weight: 600;
+            border-radius: 50px;
+            transition: 0.3s ease;
+            text-decoration: none !important;
         }
 
-        .btn-outline-light:hover {
-            background-color: #fff;
-            color: var(--couleur-principale);
+        .nav-btn:hover {
+            background: var(--gold);
+            color: var(--blue-dark) !important;
+            box-shadow: 0 8px 30px rgba(250, 204, 21, 0.4);
+            transform: translateY(-3px);
         }
 
-        /* Carte */
-        .card {
+        /* CARD ULTRA CLEAN */
+        .card-modern {
+            border-radius: 20px;
             border: none;
-            border-radius: 15px;
-            box-shadow: 0 4px 10px rgba(62, 39, 35, 0.2);
-            background-color: #fff;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, .15);
+            background: var(--soft-white);
+            transition: transform 0.3s ease;
+        }
+
+        .card-modern:hover {
+            transform: translateY(-5px) rotateX(2deg);
         }
 
         .card-header {
-            background-color: var(--couleur-secondaire);
+            background: var(--blue-mid);
             color: #fff;
-            border-top-left-radius: 15px;
-            border-top-right-radius: 15px;
+            border-radius: 20px 20px 0 0;
+            text-align: center;
+            padding: 22px;
         }
 
-        .card-body {
-            background-color: #fff;
-        }
-
-        /* Bouton principal */
-        .btn-success {
-            background-color: var(--couleur-principale);
-            border-color: var(--couleur-principale);
-        }
-
-        .btn-success:hover {
-            background-color: var(--couleur-secondaire);
-            border-color: var(--couleur-secondaire);
-        }
-
-        /* Champs du formulaire */
+        /* FORM */
         .form-control {
-            border-radius: 10px;
-            border: 1px solid #ccc;
-            box-shadow: none;
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            border-radius: 12px;
+            border: 1px solid #c7d3e3;
+            padding: 12px;
+            transition: all 0.3s ease;
         }
 
         .form-control:focus {
-            border-color: var(--couleur-secondaire);
-            box-shadow: 0 0 5px rgba(93, 64, 55, 0.4);
+            border-color: var(--blue-light);
+            box-shadow: 0 0 8px rgba(59, 106, 160, .4);
         }
 
-        label.form-label {
+        label {
             font-weight: 600;
-            color: var(--couleur-principale);
+            color: var(--blue-dark);
         }
 
-        .text-danger.small {
-            color: #b71c1c !important;
+        /* SUBMIT BUTTON */
+        .btn-submit {
+            background: var(--blue-dark);
+            border: none;
+            color: #fff;
+            padding: 12px;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all .3s;
         }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            .card {
-                margin: 1rem;
-            }
+        .btn-submit:hover {
+            background: var(--blue-mid);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,0,0,.25);
         }
     </style>
 </head>
 
 <body>
 
-<!-- Barre de navigation -->
-<nav class="navbar navbar-expand-lg navbar-dark">
-    <div class="container d-flex align-items-center">
-        <!-- Logo et texte -->
-        <a class="navbar-brand d-flex align-items-center" href="#">
-            <img src="{% static 'images/isep_news.jpg' %}" alt="Logo ISEP" width="40" height="40" class="me-2">
+<!-- NAVBAR FIXE -->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="#">
+            <i class="bi bi-diagram-3-fill" style="font-size: 1.5rem;"></i>
             ISEP Diamniadio
         </a>
 
-        <a href="{% url 'listeFilieres' %}" class="btn btn-outline-light ms-auto">
-            <i class="bi bi-arrow-left"></i> Retour à la liste
+        <a href="{% url 'listeFilieres' %}" class="nav-btn px-3 py-2">
+            <i class="bi bi-arrow-left-circle-fill"></i> Retour à la liste
         </a>
     </div>
 </nav>
 
-<!-- Contenu principal -->
+<!-- FORMULAIRE -->
 <div class="container mt-5">
     <div class="row justify-content-center">
-        <div class="col-md-6">
+        <div class="col-md-7">
 
-            <div class="card shadow-lg">
-                <div class="card-header text-center">
-                    <h4>Ajouter une nouvelle filière</h4>
+            <div class="card card-modern">
+                <div class="card-header">
+                    <h4><i class="bi bi-plus-circle-fill me-2"></i> Nouvelle filière</h4>
                 </div>
 
                 <div class="card-body p-4">
+
                     <form method="post" novalidate>
                         {% csrf_token %}
 
                         {% if form.non_field_errors %}
                         <div class="alert alert-danger">
                             {% for error in form.non_field_errors %}
-                            <p>{{ error }}</p>
+                                <p>{{ error }}</p>
                             {% endfor %}
                         </div>
                         {% endif %}
 
+                        <!-- Champ Nom -->
                         <div class="mb-3">
-                            <label class="form-label">Nom de la filière</label>
+                            <label>Nom de la filière</label>
                             {{ form.nom|add_class:"form-control" }}
-                            {% if form.nom.errors %}
-                            <div class="text-danger small">
-                                {% for error in form.nom.errors %}
-                                {{ error }}
-                                {% endfor %}
-                            </div>
-                            {% endif %}
+                            {% for error in form.nom.errors %}
+                               <div class="text-danger small">{{ error }}</div>
+                            {% endfor %}
                         </div>
 
+                        <!-- Champ Description -->
                         <div class="mb-3">
-                            <label class="form-label">Description</label>
+                            <label>Description</label>
                             {{ form.description|add_class:"form-control" }}
-                            {% if form.description.errors %}
-                            <div class="text-danger small">
-                                {% for error in form.description.errors %}
-                                {{ error }}
-                                {% endfor %}
-                            </div>
-                            {% endif %}
+                            {% for error in form.description.errors %}
+                                <div class="text-danger small">{{ error }}</div>
+                            {% endfor %}
                         </div>
 
-                        <div class="d-grid">
-                            <button type="submit" class="btn btn-success btn-lg">
-                                <i class="bi bi-save"></i> Enregistrer la filière
-                            </button>
-                        </div>
+                        <!-- Bouton Enregistrer -->
+                        <button class="btn btn-submit w-100">
+                            <i class="bi bi-save2-fill"></i> Enregistrer la filière
+                        </button>
                     </form>
+
                 </div>
             </div>
 
@@ -182,7 +187,7 @@
     </div>
 </div>
 
-<!-- Bootstrap JS -->
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
